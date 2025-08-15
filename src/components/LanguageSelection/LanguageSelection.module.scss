@@ -1,0 +1,32 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.language-btn {
+    display: flex;
+    gap: 10px;
+}
+
+.logo-mobile {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .logo-desktop {
+        display: none;
+    }
+    .logo-mobile {
+        display: block;
+    }
+    .btn-homepage {
+        width: 140px !important;
+    }
+}

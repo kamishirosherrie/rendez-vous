@@ -1,0 +1,57 @@
+@import '~/src/variables.scss';
+
+button {
+    border: none;
+    outline: none;
+    padding: 15px 30px;
+    font-size: 11px;
+    text-transform: uppercase;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.btn.primary,
+.btn.secondary {
+    width: 126px;
+}
+
+.btn.default {
+    color: $secondary-color;
+    text-decoration: underline;
+    background-color: transparent;
+    padding: 0;
+}
+
+.btn.primary {
+    background-color: $primary-color;
+    color: #fff;
+}
+.btn.secondary {
+    background-color: transparent;
+    color: $primary-color;
+    border: 1px solid $primary-color;
+}
+
+.btn.bordered {
+    border: 1px solid $border-color;
+    background-color: transparent;
+    text-transform: none;
+    color: $secondary-color;
+    transition: all 0.3s ease-in-out;
+
+    &.active {
+        background-color: #000;
+        color: #fff;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    button {
+        font-size: 14px;
+    }
+    .btn.secondary {
+        color: #fff;
+    }
+}

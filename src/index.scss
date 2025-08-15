@@ -1,0 +1,54 @@
+@import './variables.scss';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'FK Grotesk Neue', sans-serif;
+}
+
+@font-face {
+    font-family: 'FK Grotesk Neue';
+    src: url('../public//fonts/FKGROTESKNEUE-THIN.TTF') format('opentype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'FK Grotesk Neue';
+    src: url('../public/fonts/FKGROTESKNEUE-LIGHT.TTF') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'FK Grotesk Neue';
+    src: url('../public/fonts/FKGROTESKNEUE-REGULAR.TTF') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'FK Grotesk Neue';
+    src: url('../public/fonts/FKGROTESKNEUE-MEDIUM.TTF') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'FK Grotesk Neue';
+    src: url('../public/fonts/FKGROTESKNEUE-BOLD.TTF') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'FK Grotesk Neue';
+    src: url('../public/fonts/FKGROTESKNEUE-BLACK.TTF') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+.modal-open {
+    background-color: rgba($color: #000000, $alpha: 0.5);
+}

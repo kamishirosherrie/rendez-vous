@@ -1,0 +1,50 @@
+@import '../../variables.scss';
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    font-size: 14px;
+    z-index: 1;
+}
+
+.selector {
+    border: 1px solid $border-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.selected-date {
+    padding: 10px;
+    border: 1px solid $border-color;
+
+    .placeholder {
+        color: $secondary-color;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .overlay {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #000;
+        opacity: 0.5;
+        z-index: 999;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .container {
+        position: relative;
+    }
+}

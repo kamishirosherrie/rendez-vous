@@ -1,0 +1,50 @@
+@import '../../variables.scss';
+
+.header {
+    &.center {
+        img {
+            display: block;
+            margin: 0 auto;
+        }
+    }
+}
+
+.content {
+    padding-top: 20%;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+}
+.intro {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 20%;
+}
+.title,
+.description {
+    width: 50%;
+}
+.title {
+    font-size: 28px;
+    text-transform: uppercase;
+}
+.description {
+    font-size: 14px;
+    color: $secondary-color;
+}
+
+@media screen and (max-width: 768px) {
+    .intro {
+        flex-direction: column;
+        gap: 20px;
+        align-items: start;
+    }
+    .title,
+    .description {
+        width: auto;
+    }
+}

@@ -1,0 +1,122 @@
+@import '../../variables.scss';
+
+.wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.selected-range-time {
+    display: flex;
+    gap: 10px;
+}
+
+.selector.disabled {
+    .arrow-icon {
+        color: #000;
+        opacity: 0.5;
+    }
+}
+
+.container {
+    position: relative;
+}
+
+.selector {
+    border: 1px solid $border-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.arrow-icon {
+    transition: transform 0.3s ease-in-out;
+}
+
+.arrow-icon.active {
+    transform: rotate(180deg);
+}
+
+.placeholder {
+    color: $secondary-color;
+}
+
+.selected-options-wrapper {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.selected-option {
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    background-color: #f9f9f9;
+    border: 1px solid $border-color;
+}
+
+.dropdown {
+    background-color: #f9f9f9;
+    padding: 15px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    position: absolute;
+    top: 100%;
+    z-index: 1000;
+    width: 100%;
+    display: none;
+    &.active {
+        display: grid;
+    }
+}
+
+.option {
+    padding: 10px;
+    border: 1px solid $border-color;
+    text-align: center;
+    &.disabled {
+        border-color: rgba($color: $border-color, $alpha: 0.5);
+        color: rgba($color: #000000, $alpha: 0.1);
+    }
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .dropdown {
+        display: grid;
+        position: fixed;
+        top: unset;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        transform: translateY(100%);
+        transition: transform 0.3s ease-in-out;
+
+        &.active {
+            transform: translateY(0);
+        }
+    }
+    .overlay {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #000;
+        opacity: 0.5;
+        z-index: 999;
+    }
+}

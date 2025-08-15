@@ -1,0 +1,131 @@
+@import '../../../variables.scss';
+
+.select-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.select-container {
+    position: relative;
+}
+
+.selector {
+    border: 1px solid $border-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.arrow-icon {
+    transition: transform 0.3s ease-in-out;
+}
+
+.arrow-icon.active {
+    transform: rotate(180deg);
+}
+
+.select-placeholder {
+    color: $secondary-color;
+}
+
+.selected-options-wrapper {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.selected-option {
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    background-color: #f9f9f9;
+    border: 1px solid $border-color;
+}
+
+.select-dropdown {
+    background-color: #f9f9f9;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    top: 100%;
+    z-index: 1000;
+    width: 100%;
+}
+
+.select-option {
+    &:hover {
+        cursor: pointer;
+    }
+    svg {
+        display: none;
+    }
+}
+
+.not-select {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .select-dropdown {
+        position: fixed;
+        padding: 40px;
+        gap: 16px;
+        top: unset;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        transform: translateY(100%);
+        transition: transform 0.3s ease-in-out;
+
+        &.active {
+            transform: translateY(0);
+        }
+    }
+    .select-option {
+        display: flex;
+        justify-content: space-between;
+        svg {
+            display: block;
+        }
+    }
+    .overlay {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #000;
+        opacity: 0.5;
+        z-index: 999;
+    }
+    .not-select {
+        display: block;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .select-dropdown {
+        display: none;
+
+        &.active {
+            display: flex;
+        }
+    }
+}
