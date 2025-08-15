@@ -2,9 +2,14 @@
 .input {
     outline: none;
     border: 1px solid #e6e6e6;
+    border-radius: 0;
+    -webkit-border-radius: 0;
     width: 100%;
     padding: 10px;
     font-size: 13px;
+    -webkit-appearance: none;
+    appearance: none;
+    display: inline-block;
     &::placeholder {
         color: $secondary-color;
     }
