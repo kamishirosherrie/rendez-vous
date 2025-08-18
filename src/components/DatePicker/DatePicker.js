@@ -23,39 +23,37 @@ function DatePicker({ showDatePicker, setShowDatePicker, selectedDate, setSelect
         }
     })
     return (
-        <>
-            <div className={cx('wrapper')}>
-                <label>{title}</label>
-                <div className={cx('container')} ref={dropdownRef}>
-                    <div className={cx('selector')} onClick={() => setShowDatePicker((prev) => !prev)}>
-                        {selectedDate ? (
-                            <span>{dayjs(selectedDate).format('DD.MM.YYYY')}</span>
-                        ) : (
-                            <span className={cx('placeholder')}>dd/mm/yyyy</span>
-                        )}
-                        <ArrowDown width="12" height="8" className={cx('arrow-icon', showDatePicker ? 'active' : '')} />
-                    </div>
+        <div className={cx('wrapper')}>
+            <label>{title}</label>
+            <div className={cx('container')} ref={dropdownRef}>
+                <div className={cx('selector')} onClick={() => setShowDatePicker((prev) => !prev)}>
+                    {selectedDate ? (
+                        <span>{dayjs(selectedDate).format('DD.MM.YYYY')}</span>
+                    ) : (
+                        <span className={cx('placeholder')}>dd/mm/yyyy</span>
+                    )}
+                    <ArrowDown width="12" height="8" className={cx('arrow-icon', showDatePicker ? 'active' : '')} />
                 </div>
+                <DayPicker
+                    mode="single"
+                    selected={selectedDate}
+                    onSelect={setSelectedDate}
+                    showOutsideDays
+                    weekStartsOn={1}
+                    disabled={[
+                        {
+                            before: new Date(),
+                        },
+                        {
+                            from: new Date(),
+                            to: new Date().setDate(new Date().getDate() + 2),
+                        },
+                    ]}
+                    className={`day-picker ${showDatePicker ? 'active' : ''}`}
+                />
+                {showDatePicker && <div className={cx('overlay')} onClick={() => setShowDatePicker(false)}></div>}
             </div>
-            <DayPicker
-                mode="single"
-                selected={selectedDate}
-                onSelect={setSelectedDate}
-                showOutsideDays
-                weekStartsOn={1}
-                disabled={[
-                    {
-                        before: new Date(),
-                    },
-                    {
-                        from: new Date(),
-                        to: new Date().setDate(new Date().getDate() + 2),
-                    },
-                ]}
-                className={`day-picker ${showDatePicker ? 'active' : ''}`}
-            />
-            {showDatePicker && <div className={cx('overlay')} onClick={() => setShowDatePicker(false)}></div>}
-        </>
+        </div>
     )
 }
 
