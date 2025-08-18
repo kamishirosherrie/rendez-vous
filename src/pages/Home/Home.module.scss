@@ -7,12 +7,16 @@
 
 .step {
     height: 100%;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 .step.center {
+    justify-content: space-between;
     .thanks {
         width: 70%;
         margin: 0 auto;
@@ -23,6 +27,9 @@
     }
     .footer {
         text-align: center;
+        position: relative;
+        margin-left: 0;
+        bottom: 0;
     }
 }
 
@@ -31,6 +38,9 @@
     flex-direction: column;
     gap: 40px;
     font-size: 14px;
+    padding: 10% 0 30%;
+    position: relative;
+    top: 30px;
 }
 
 .heading-title {
@@ -160,6 +170,13 @@
     text-transform: uppercase;
     color: $secondary-color;
     font-size: 12px;
+    position: fixed;
+    bottom: 60px;
+    left: 0;
+    background: #fff;
+    width: 100%;
+    margin-left: 50%;
+    padding: 5% 60px 0;
 }
 
 @media screen and (max-width: 768px) {
@@ -185,5 +202,9 @@
         align-items: normal;
         display: grid;
         grid-template-columns: 7% auto;
+    }
+    .footer {
+        padding: 5% 20px 0;
+        margin-left: 0;
     }
 }

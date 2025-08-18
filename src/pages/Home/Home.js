@@ -128,7 +128,7 @@ function Home() {
     }, [selectedDate])
 
     return (
-        <div className={cx('home-container')}>
+        <>
             {step === 1 && <LanguageSelection nextStep={nextStep} />}
             {step === 2 && (
                 <div className={cx('step')}>
@@ -359,7 +359,7 @@ function Home() {
                     <div className={cx('footer')}>Since 2025</div>
                 </div>
             )}
-        </div>
+        </>
     )
 }
 

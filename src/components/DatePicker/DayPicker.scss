@@ -16,9 +16,9 @@
             display: block;
         }
     }
-    .rdp-day_button {
-        width: 36px;
-        height: 36px;
+    .rdp-day,
+    .rdp-weekday {
+        height: 35px;
     }
 }
 
@@ -36,8 +36,8 @@
             transform: translateY(0);
         }
     }
-    .rdp-day_button {
-        width: 50px;
+    .rdp-day_button,
+    .rdp-weekday {
         height: 50px;
     }
 }
@@ -52,8 +52,9 @@
 }
 
 .rdp-month_grid {
-    margin: 0 auto;
-    padding-top: 10px;
+    padding: 10px;
+    table-layout: fixed;
+    width: 100%;
 }
 
 .rdp-nav {

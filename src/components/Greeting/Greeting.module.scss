@@ -1,7 +1,17 @@
 @import '../../variables.scss';
 
 .header {
+    position: fixed;
+    width: 100%;
+    padding: 0 60px 20px;
+    left: 0;
+    margin-left: 50%;
+    background-color: #fff;
+    z-index: 1;
     &.center {
+        position: relative;
+        margin-left: 0;
+        padding: 0;
         img {
             display: block;
             margin: 0 auto;
@@ -10,7 +20,7 @@
 }
 
 .content {
-    padding-top: 20%;
+    padding: 20% 0 5%;
 }
 
 .body {
@@ -38,6 +48,17 @@
 }
 
 @media screen and (max-width: 768px) {
+    .header {
+        margin-left: 0;
+        padding: 0 20px;
+        top: 80px;
+        &.center {
+            top: 0;
+        }
+    }
+    .content {
+        padding: 25% 0 5%;
+    }
     .intro {
         flex-direction: column;
         gap: 20px;
