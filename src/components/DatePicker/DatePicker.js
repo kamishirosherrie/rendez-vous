@@ -8,8 +8,12 @@ import { useEffect, useRef } from 'react'
 
 const cx = classNames.bind(styles)
 
-function DatePicker({ showDatePicker, setShowDatePicker, selectedDate, setSelectedDate, title }) {
+function DatePicker({ showDatePicker, setShowDatePicker, selectedDate, onClick, title }) {
     const dropdownRef = useRef(null)
+
+    const handleChange = (date) => {
+        onClick?.(date)
+    }
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -37,7 +41,7 @@ function DatePicker({ showDatePicker, setShowDatePicker, selectedDate, setSelect
                 <DayPicker
                     mode="single"
                     selected={selectedDate}
-                    onSelect={setSelectedDate}
+                    onSelect={handleChange}
                     showOutsideDays
                     weekStartsOn={1}
                     disabled={[
@@ -47,6 +51,9 @@ function DatePicker({ showDatePicker, setShowDatePicker, selectedDate, setSelect
                         {
                             from: new Date(),
                             to: new Date().setDate(new Date().getDate() + 2),
+                        },
+                        {
+                            dayOfWeek: [0, 6],
                         },
                     ]}
                     className={`day-picker ${showDatePicker ? 'active' : ''}`}

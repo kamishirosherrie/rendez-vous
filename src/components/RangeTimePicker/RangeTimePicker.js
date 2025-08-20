@@ -19,8 +19,8 @@ function RangeTimePicker({
     const { t } = useTranslation()
     const [open, setOpen] = useState(false)
     const rangeTimes = [
-        { start: '8:00', end: '9:00' },
-        { start: '9:00', end: '10:00' },
+        { start: '08:00', end: '09:00' },
+        { start: '09:00', end: '10:00' },
         { start: '10:00', end: '11:00' },
         { start: '11:00', end: '12:00' },
         { start: '14:00', end: '15:00' },
@@ -71,7 +71,7 @@ function RangeTimePicker({
                 <div className={cx('dropdown', open ? 'active' : '')}>
                     {rangeTimes?.map((range, index) => {
                         const isAvailable = availableTimes?.some(
-                            (time) => time.start === range.start && time.end === range.end,
+                            (time) => time.time === range.start && time.end_time === range.end,
                         )
                         return (
                             <div

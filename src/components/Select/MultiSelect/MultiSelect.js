@@ -42,7 +42,7 @@ function MultiSelect({ title, placeholder, options, selectedOptions, setSelected
                     {selectedOptions?.length > 0 ? (
                         <div className={cx('selected-options-wrapper')}>
                             {selectedOptions?.map((option) => (
-                                <div className={cx('selected-option')} key={option.value}>
+                                <div className={cx('selected-option')} key={option.id}>
                                     <span
                                         className={cx('remove-icon')}
                                         onClick={(e) => {
@@ -52,7 +52,7 @@ function MultiSelect({ title, placeholder, options, selectedOptions, setSelected
                                     >
                                         x
                                     </span>
-                                    {option.label}
+                                    {option.name}
                                 </div>
                             ))}
                         </div>
@@ -67,8 +67,8 @@ function MultiSelect({ title, placeholder, options, selectedOptions, setSelected
                         {language === 'vi' ? `Hãy ${title.charAt(0).toLowerCase() + title.slice(1)}` : title}
                     </span>
                     {options?.map((option) => (
-                        <div className={cx('select-option')} key={option.value} onClick={() => toggleSelect(option)}>
-                            {t(option.label)}
+                        <div className={cx('select-option')} key={option.id} onClick={() => toggleSelect(option)}>
+                            {t(option.name)}
                             {selectedOptions.includes(option) && <Tick width="12" height="12" />}
                         </div>
                     ))}

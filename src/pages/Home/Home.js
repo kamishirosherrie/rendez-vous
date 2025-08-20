@@ -13,36 +13,17 @@ import DatePicker from '~/components/DatePicker/DatePicker'
 import { customerSchema } from '~/validations/formSchema'
 import { useStep } from '../../contexts/stepContext'
 import { useTranslation } from 'react-i18next'
+import axios from 'axios'
 
 const cx = classNames.bind(styles)
 
-const serviceOptions = [
-    {
-        value: 'service1',
-        label: 'Khám phá BST mới',
-    },
-    {
-        value: 'service2',
-        label: 'Đặt mua sản phẩm',
-    },
-    {
-        value: 'service3',
-        label: 'Tư vấn quà tặng',
-    },
-    {
-        value: 'service4',
-        label: 'Hậu mãi và bảo trì sản phẩm',
-    },
-]
-const catalogOptions = [
-    { value: 'category1', label: 'Đồng hồ và trang sức' },
-    { value: 'category2', label: 'Thời trang' },
-    { value: 'category3', label: 'Phong cách sống' },
-    { value: 'category4', label: 'Mỹ phẩm' },
-]
+function formatDate(date, time) {
+    const [h, m] = time.split(':').map(Number)
+    return dayjs(date).hour(h).minute(m).second(0).format('YYYY-MM-DD HH:mm:ss')
+}
 
 function Home() {
-    const { t } = useTranslation()
+    const { t, i18n } = useTranslation()
     const { step, setStep } = useStep()
     const [customer, setCustomer] = useState({})
     const [selectedservice, setSelectedService] = useState([])
@@ -54,6 +35,9 @@ function Home() {
     const [isEmailCheck, setIsEmailCheck] = useState(false)
     const [isSMSCheck, setIsSMSCheck] = useState(false)
     const [isSubscribe, setIsSubscribe] = useState(false)
+
+    const [services, setServices] = useState([])
+    const [categories, setCategories] = useState([])
 
     const nextStep = async () => {
         setStep((prev) => prev + 1)
@@ -91,41 +75,49 @@ function Home() {
         return false
     }
 
-    const handleSubmit = () => {
+    const handleChangeDate = async (date) => {
+        setSelectedDate(date)
+        if (date) {
+            const dateConverted = date.toISOString().split('T')[0]
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/available-times?date=${dateConverted}`)
+            setRangeTimesAvailable(response.data?.data?.available_times ?? [])
+        }
+    }
+
+    const handleSubmit = async () => {
         nextStep()
+        const serviceIds = selectedservice.map((item) => item.id)
+        const catalogIds = selectedCatalog.map((item) => item.id)
         const formValues = {
             ...customer,
-            first_name: customer.first_name,
-            last_name: customer.last_name,
-            email: customer.email,
-            phone_number: customer.phone_number,
-            services: selectedservice,
-            catalogs: selectedCatalog,
-            date: selectedDate?.toISOString(),
-            time: selectedRangeTime,
-            chanel: {
-                email: isEmailCheck,
-                sms: isSMSCheck,
-            },
-            isSubscribe: isSubscribe,
+            customer_firstname: customer.first_name,
+            customer_lastname: customer.last_name,
+            customer_email: customer.email,
+            customer_phone: customer.phone_number,
+            customer_language: i18n.language,
+            service_id: serviceIds,
+            product_category_id: catalogIds,
+            appointment_date: formatDate(selectedDate, selectedRangeTime.start),
         }
-        console.log(formValues)
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/appointments`, formValues)
+            console.log('Appointment created successfully: ', response.data)
+        } catch (error) {
+            console.error('Error creating appointment: ', error)
+        }
     }
 
     useEffect(() => {
-        if (selectedDate) {
-            // Fetch range times based on selected date
-            const rangeTimes = [
-                { start: '8:00', end: '9:00' },
-                { start: '10:00', end: '11:00' },
-                { start: '16:00', end: '17:00' },
-                { start: '17:00', end: '18:00' },
-                { start: '20:00', end: '21:00' },
-                { start: '21:00', end: '22:00' },
-            ]
-            setRangeTimesAvailable(rangeTimes)
+        async function fetchServicesAndCatalogs() {
+            if (step === 3) {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/services-categories`)
+                console.log(response.data.data)
+                setServices(response.data?.data?.services ?? [])
+                setCategories(response.data?.data?.product_categories ?? [])
+            }
         }
-    }, [selectedDate])
+        fetchServicesAndCatalogs()
+    }, [step])
 
     return (
         <>
@@ -205,7 +197,7 @@ function Home() {
                         <div className={cx('input')}>
                             <MultiSelect
                                 title={t('serviceSelection')}
-                                options={serviceOptions}
+                                options={services}
                                 selectedOptions={selectedservice}
                                 setSelectedOptions={setSelectedService}
                                 placeholder={t('serviceSlectionPlaceholder')}
@@ -213,11 +205,11 @@ function Home() {
                         </div>
                         <div className={cx('input')}>
                             <MultiSelect
-                                title={t('catalogSelection')}
-                                options={catalogOptions}
+                                title={t('categorySelection')}
+                                options={categories}
                                 selectedOptions={selectedCatalog}
                                 setSelectedOptions={setSelectedCatalog}
-                                placeholder={t('catalogSelectionPlaceholder')}
+                                placeholder={t('categorySelectionPlaceholder')}
                             />
                         </div>
                         <div className={cx('action')}>
@@ -243,8 +235,8 @@ function Home() {
                                 title={t('pickADate')}
                                 showDatePicker={showDatePicker}
                                 setShowDatePicker={setShowDatePicker}
+                                onClick={handleChangeDate}
                                 selectedDate={selectedDate}
-                                setSelectedDate={setSelectedDate}
                             />
                             <RangeTimePicker
                                 title={t('timePeriod')}
